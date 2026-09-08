@@ -1863,10 +1863,10 @@ console.log('✅ Patches applied successfully!');
 </script>
 <script>
 // ============================================================
-// PATCH: Fix "+ New Deck" and confirmNewDeck
+// FINAL PATCH: Fix New Deck + Add Card
 // ============================================================
 
-// Fix 1: Override confirmNewDeck
+// Fix confirmNewDeck
 window.confirmNewDeck = function() {
     const nameInput = document.getElementById('modalDeckName');
     if (!nameInput) {
@@ -1890,14 +1890,14 @@ window.confirmNewDeck = function() {
     showToast('✅ Deck created: ' + deckName);
 };
 
-// Fix 2: Override openModal for newDeck
+// Fix openModal - New Deck
 const originalOpenModal = window.openModal;
 
 window.openModal = function(type, deckId, cardId) {
     const overlay = document.getElementById('modalOverlay');
     const content = document.getElementById('modalContent');
     
-    // Handle New Deck separately
+    // Handle New Deck
     if (type === 'newDeck') {
         content.innerHTML = `
             <h2>New Deck</h2>
@@ -1917,11 +1917,37 @@ window.openModal = function(type, deckId, cardId) {
         return;
     }
     
+    // Handle Add Card - check if deck exists
+    if (type === 'addCard') {
+        if (!deckId || !data.decks[deckId]) {
+            const ids = Object.keys(data.decks);
+            if (ids.length === 0) {
+                showToast('Please create a deck first.');
+                return;
+            }
+            deckId = ids[0];
+            selectedDeckId = deckId;
+        }
+    }
+    
     // For all other types, use the original function
     originalOpenModal(type, deckId, cardId);
 };
 
-console.log('✅ All patches applied! New Deck should work now.');
+// Fix getSelectedDeckId
+window.getSelectedDeckId = function() {
+    if (selectedDeckId && data.decks[selectedDeckId]) {
+        return selectedDeckId;
+    }
+    const ids = Object.keys(data.decks);
+    if (ids.length > 0) {
+        selectedDeckId = ids[0];
+        return ids[0];
+    }
+    return null;
+};
+
+console.log('✅ All patches applied cleanly!');
 </script>
 </body>
 </html>
