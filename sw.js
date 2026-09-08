@@ -1,68 +1,49 @@
-// sw.js - Service Worker for FlexiCards
-const CACHE_NAME = 'flexicards-v1';
-const APP_URL = '/flexicards/flexicard2.html';
+// sw.js - Safe Service Worker for FlexiCards
+const CACHE_NAME = 'flexicards-v3'; // New version forces update
 
-// Install event - cache the app
-self.addEventListener('install', (event) => {
+// Install: Only cache the main HTML file
+self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then((cache) => {
-                console.log('📦 Caching app files...');
-                return cache.addAll([
-                    APP_URL,
-                    '/flexicards/'
-                ]);
-            })
-            .then(() => {
-                console.log('✅ Installation complete!');
-                return self.skipWaiting();
-            })
+            .then(cache => cache.add('/flexicards/flexicard2.html'))
+            .then(() => self.skipWaiting())
     );
 });
 
-// Activate event - clean up old caches
-self.addEventListener('activate', (event) => {
+// Activate: Clean up old caches immediately
+self.addEventListener('activate', event => {
     event.waitUntil(
-        caches.keys().then((cacheNames) => {
+        caches.keys().then(keys => {
             return Promise.all(
-                cacheNames.map((name) => {
-                    if (name !== CACHE_NAME) {
-                        console.log('🗑️ Deleting old cache:', name);
-                        return caches.delete(name);
-                    }
-                })
+                keys.filter(key => key !== CACHE_NAME)
+                    .map(key => caches.delete(key))
             );
-        }).then(() => {
-            console.log('✅ Activation complete!');
-            return self.clients.claim();
-        })
+        }).then(() => self.clients.claim()) // Take control immediately
     );
 });
 
-// Fetch event - serve from cache, fallback to network
-self.addEventListener('fetch', (event) => {
+// Fetch: Network first, fallback to cache
+self.addEventListener('fetch', event => {
+    // Ignore non-GET requests and requests to other domains
+    if (event.request.method !== 'GET' || !event.request.url.startsWith(self.location.origin)) {
+        return;
+    }
+
     event.respondWith(
-        caches.match(event.request)
-            .then((cached) => {
-                if (cached) {
-                    console.log('📂 Serving from cache:', event.request.url);
-                    return cached;
-                }
-                return fetch(event.request)
-                    .then((response) => {
-                        const responseClone = response.clone();
-                        caches.open(CACHE_NAME).then((cache) => {
-                            cache.put(event.request, responseClone);
-                        });
-                        return response;
-                    })
-                    .catch(() => {
-                        console.log('❌ Offline and not cached');
-                        return new Response('Offline - please connect to internet to load the app.', {
-                            status: 503,
-                            statusText: 'Service Unavailable'
-                        });
-                    });
+        fetch(event.request)
+            .then(response => {
+                // Cache a copy for offline use
+                const clone = response.clone();
+                caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+                return response;
+            })
+            .catch(() => {
+                // If offline, try to serve the cached HTML
+                return caches.match(event.request).then(cached => {
+                    if (cached) return cached;
+                    // Fallback
+                    return new Response('Offline: Please connect to the internet.', { status: 503 });
+                });
             })
     );
 });
