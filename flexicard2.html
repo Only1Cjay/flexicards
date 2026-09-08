@@ -1861,5 +1861,40 @@ window.openModal = function(type, deckId, cardId) {
 
 console.log('✅ Patches applied successfully!');
 </script>
+    <script>
+// ============================================================
+// PATCH: Fix "+ New Deck" button
+// ============================================================
+
+// Override the newDeck section of openModal
+const originalOpenModal = window.openModal;
+
+window.openModal = function(type, deckId, cardId) {
+    const overlay = document.getElementById('modalOverlay');
+    const content = document.getElementById('modalContent');
+    
+    // Handle New Deck separately — clean and simple
+    if (type === 'newDeck') {
+        content.innerHTML = `
+            <h2>New Deck</h2>
+            <p class="sub">Create a new deck for a subject or topic.</p>
+            <label>Deck Name</label>
+            <input id="modalDeckName" placeholder="e.g. Anatomy, History, French" autofocus>
+            <div class="btn-row">
+                <button class="btn btn-neutral" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="confirmNewDeck()">Create</button>
+            </div>
+        `;
+        overlay.classList.add('active');
+        setTimeout(() => document.getElementById('modalDeckName')?.focus(), 100);
+        return;
+    }
+    
+    // For all other types, use the original function
+    originalOpenModal(type, deckId, cardId);
+};
+
+console.log('✅ New Deck patch applied!');
+</script>
 </body>
 </html>
