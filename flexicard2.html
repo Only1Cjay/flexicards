@@ -1823,5 +1823,43 @@ window.pushToGist = pushToGist;
 window.pullFromGist = pullFromGist;
 window.saveToken = saveToken;
 </script>
+    <script>
+// ============================================================
+// PATCH: Fix "undefined deck name" error
+// ============================================================
+
+// Override getSelectedDeckId with safe version
+window.getSelectedDeckId = function() {
+    if (selectedDeckId && data.decks[selectedDeckId]) {
+        return selectedDeckId;
+    }
+    const ids = Object.keys(data.decks);
+    if (ids.length > 0) {
+        selectedDeckId = ids[0];
+        return ids[0];
+    }
+    showToast('Please create a deck first.');
+    return null;
+};
+
+// Override openModal to handle missing deck
+const originalOpenModal = window.openModal;
+window.openModal = function(type, deckId, cardId) {
+    if (type === 'addCard' || type === 'manageDeck') {
+        if (!deckId || !data.decks[deckId]) {
+            const ids = Object.keys(data.decks);
+            if (ids.length === 0) {
+                showToast('Please create a deck first.');
+                return;
+            }
+            deckId = ids[0];
+            selectedDeckId = deckId;
+        }
+    }
+    originalOpenModal(type, deckId, cardId);
+};
+
+console.log('✅ Patches applied successfully!');
+</script>
 </body>
 </html>
