@@ -7,7 +7,6 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
         
-        /* ===== THEME VARIABLES ===== */
         :root {
             --bg-primary: #0a1628;
             --bg-secondary: #0f1f3a;
@@ -15,7 +14,6 @@
             --bg-input: #0a1628;
             --bg-modal: #0f1f3a;
             --bg-fab: #1a3a5a;
-            --bg-fab-hover: #2563eb;
             --text-primary: #e8edf5;
             --text-secondary: #8aa3c9;
             --text-muted: #5a7a9f;
@@ -48,7 +46,6 @@
             --bg-input: #f0f4fa;
             --bg-modal: #ffffff;
             --bg-fab: #e2e8f0;
-            --bg-fab-hover: #2563eb;
             --text-primary: #0a1628;
             --text-secondary: #1a3a5a;
             --text-muted: #5a7a9f;
@@ -82,7 +79,6 @@
 
         .hidden { display: none !important; }
         
-        /* ===== TOP BAR ===== */
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -111,7 +107,6 @@
             gap: 6px;
         }
 
-        /* ===== BUTTONS ===== */
         .btn {
             padding: 10px 20px;
             border: none;
@@ -142,10 +137,6 @@
             background: var(--danger);
             color: #fff;
         }
-        .btn-warning {
-            background: var(--warning);
-            color: #000;
-        }
         .btn-outline {
             background: transparent;
             border: 1.5px solid var(--border-color);
@@ -154,12 +145,10 @@
         .btn-sm { padding: 6px 14px; font-size: 12px; }
         .btn-block { width: 100%; padding: 14px; }
         
-        /* ===== SCREENS ===== */
         .screen { display: none; animation: fadeIn 0.25s ease; }
         .screen.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
-        /* ===== DECK LIST ===== */
         .deck-grid { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
         .deck-card {
             background: var(--bg-card);
@@ -176,7 +165,6 @@
         .deck-card .info p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
         .deck-card .actions { display: flex; gap: 8px; flex-wrap: wrap; }
         
-        /* ===== STUDY VIEW ===== */
         .card-container {
             background: var(--card-bg);
             border-radius: 18px;
@@ -240,7 +228,6 @@
             color: #fff; 
         }
         
-        /* ===== SETTINGS ===== */
         .settings-group {
             background: var(--bg-card);
             border-radius: 14px;
@@ -279,7 +266,6 @@
             margin: 20px 0;
         }
         
-        /* ===== MODAL ===== */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -342,7 +328,6 @@
         }
         .modal .btn-row .btn { flex: 1; text-align: center; }
         
-        /* ===== CARD LIST IN MODAL ===== */
         .card-list-modal { max-height: 300px; overflow-y: auto; margin: 12px 0; }
         .card-list-item {
             background: var(--bg-primary);
@@ -379,7 +364,6 @@
         }
         .card-list-item .del:active { opacity: 0.6; }
         
-        /* ===== FLOATING ACTION BUTTON ===== */
         .fab-container {
             position: fixed;
             bottom: 24px;
@@ -454,7 +438,6 @@
             margin: 4px 12px;
         }
         
-        /* ===== SEARCH RESULTS ===== */
         .search-result-item {
             background: var(--bg-primary);
             padding: 12px 14px;
@@ -484,7 +467,6 @@
             border-radius: 10px;
         }
         
-        /* ===== UTILITY ===== */
         .empty-state { text-align: center; padding: 40px 0; color: var(--text-muted); }
         .empty-state .big-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.3; }
         .flex-between {
@@ -499,7 +481,6 @@
         .text-muted { color: var(--text-muted); font-size: 14px; }
         .text-center { text-align: center; }
         
-        /* ===== THEME TOGGLE & ICON BUTTONS ===== */
         .icon-btn {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
@@ -517,7 +498,6 @@
         .icon-btn:active { transform: scale(0.92); }
         .icon-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
         
-        /* ===== TOAST ===== */
         .toast {
             position: fixed;
             bottom: 100px;
@@ -539,24 +519,8 @@
         }
         .toast.show { opacity: 1; }
         
-        /* ===== FILE INPUT HIDDEN ===== */
         .hidden-file-input { display: none; }
         
-        /* ===== SYNC STATUS INDICATOR ===== */
-        .sync-status {
-            font-size: 11px;
-            color: var(--text-muted);
-            background: var(--bg-secondary);
-            padding: 2px 10px;
-            border-radius: 12px;
-            display: inline-block;
-            margin-left: 6px;
-        }
-        .sync-status.synced { color: var(--success); }
-        .sync-status.pending { color: var(--warning); }
-        .sync-status.error { color: var(--danger); }
-        
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 400px) {
             .interval-btns { grid-template-columns: 1fr 1fr; }
             .settings-row { grid-template-columns: 1fr 1fr; }
@@ -567,10 +531,8 @@
 </head>
 <body>
 
-<!-- ===== TOAST ===== -->
 <div class="toast" id="toast"></div>
 
-<!-- ===== TOP BAR ===== -->
 <div class="top-bar">
     <h1>Flexi<span>Cards</span></h1>
     <div class="right-group">
@@ -582,7 +544,6 @@
     </div>
 </div>
 
-<!-- ===== SCREEN: HOME ===== -->
 <div id="screen-home" class="screen active">
     <div class="flex-between">
         <span class="text-muted">Your Decks</span>
@@ -591,7 +552,6 @@
     <div id="deckList" class="deck-grid"></div>
 </div>
 
-<!-- ===== SCREEN: STUDY ===== -->
 <div id="screen-study" class="screen">
     <div class="flex-between mb-8">
         <button class="btn btn-outline btn-sm" onclick="exitStudy()">← Back</button>
@@ -619,7 +579,6 @@
     </div>
 </div>
 
-<!-- ===== SCREEN: SETTINGS ===== -->
 <div id="screen-settings" class="screen">
     <div class="flex-between" style="margin-bottom:16px;">
         <h2 style="color:var(--text-primary);">Settings</h2>
@@ -661,18 +620,10 @@
     <button class="btn btn-danger btn-block" style="margin-top:20px;" onclick="resetAllData()">Reset All Data</button>
 </div>
 
-<!-- ============================================================ -->
-<!-- ===== MODAL CONTAINER ===== -->
-<!-- ============================================================ -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this) closeModal()">
-    <div class="modal" id="modalContent">
-        <!-- Dynamic content rendered by JS -->
-    </div>
+    <div class="modal" id="modalContent"></div>
 </div>
 
-<!-- ============================================================ -->
-<!-- ===== FLOATING ACTION BUTTON ===== -->
-<!-- ============================================================ -->
 <div class="fab-container">
     <div class="fab-menu" id="fabMenu">
         <button class="fab-menu-item" onclick="closeFab(); openModal('addCard', getSelectedDeckId())">
@@ -706,9 +657,6 @@
     <button class="fab" id="fabButton" onclick="toggleFab()">+</button>
 </div>
 
-<!-- ============================================================ -->
-<!-- ===== HIDDEN FILE INPUTS ===== -->
-<!-- ============================================================ -->
 <input type="file" id="fileInput" class="hidden-file-input" accept=".csv">
 <input type="file" id="backupInput" class="hidden-file-input" accept=".json">
 
@@ -794,9 +742,15 @@ function getButtonLabel(index) {
 }
 
 function getSelectedDeckId() {
-    if (selectedDeckId && data.decks[selectedDeckId]) return selectedDeckId;
+    if (selectedDeckId && data.decks[selectedDeckId]) {
+        return selectedDeckId;
+    }
     const ids = Object.keys(data.decks);
-    return ids.length > 0 ? ids[0] : null;
+    if (ids.length > 0) {
+        selectedDeckId = ids[0];
+        return ids[0];
+    }
+    return null;
 }
 
 // ============================================================
@@ -839,10 +793,7 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/flexicards/sw.js')
         .then(() => {
             console.log('✅ Service Worker registered - app works offline!');
-            // Show offline ready toast after a moment
-            setTimeout(() => {
-                showToast('📱 Offline ready!');
-            }, 1500);
+            setTimeout(() => showToast('📱 Offline ready!'), 1500);
         })
         .catch((err) => {
             console.log('❌ Service Worker registration failed:', err);
@@ -867,9 +818,8 @@ function closeFab() {
 }
 
 // ============================================================
-// BACKUP SYSTEM (Option 1 - Manual JSON)
+// BACKUP SYSTEM
 // ============================================================
-
 function exportBackup() {
     closeFab();
     const backupData = {
@@ -934,9 +884,8 @@ document.getElementById('backupInput').addEventListener('change', function(e) {
 });
 
 // ============================================================
-// GITHUB GIST SYNC (Option 2)
+// GITHUB GIST SYNC
 // ============================================================
-
 function saveToken() {
     const token = document.getElementById('githubToken').value.trim();
     if (token) {
@@ -974,12 +923,9 @@ async function setupGist() {
     
     try {
         setSyncStatus('Setting up sync...', 'pending');
-        
-        // Check if we already have a gist
         let gistId = loadGistId();
         
         if (!gistId) {
-            // Create a new gist
             const response = await fetch('https://api.github.com/gists', {
                 method: 'POST',
                 headers: {
@@ -1008,7 +954,6 @@ async function setupGist() {
             setSyncStatus('✅ Sync setup complete!', 'synced');
             showToast('Sync setup complete!');
         } else {
-            // Update existing gist
             await pushToGist();
         }
         
@@ -1023,13 +968,8 @@ async function pushToGist() {
     const token = loadToken();
     const gistId = loadGistId();
     
-    if (!token) {
+    if (!token || !gistId) {
         showToast('Please setup sync first (Settings → Cloud Sync)');
-        return;
-    }
-    
-    if (!gistId) {
-        await setupGist();
         return;
     }
     
@@ -1104,23 +1044,18 @@ async function pullFromGist() {
             throw new Error('Invalid data in gist');
         }
         
-        // Count cards in cloud
         let cardCount = 0;
         for (const [id, deck] of Object.entries(cloudData.data.decks)) {
             cardCount += deck.cards ? deck.cards.length : 0;
         }
         
-        // Show diff and ask user
         const localCount = Object.keys(data.decks).reduce((acc, id) => acc + data.decks[id].cards.length, 0);
         
-        const msg = `Cloud has ${cardCount} cards. Local has ${localCount} cards.\n\nReplace local data with cloud data?`;
-        
-        if (!confirm(msg)) {
+        if (!confirm(`Cloud has ${cardCount} cards. Local has ${localCount} cards.\n\nReplace local data with cloud data?`)) {
             setSyncStatus('Pull cancelled', '');
             return;
         }
         
-        // Restore cloud data
         data = cloudData.data;
         if (cloudData.labels) {
             labels = cloudData.labels;
@@ -1152,6 +1087,7 @@ function openModal(type, deckId, cardId) {
     const overlay = document.getElementById('modalOverlay');
     const content = document.getElementById('modalContent');
     
+    // NEW DECK
     if (type === 'newDeck') {
         content.innerHTML = `
             <h2>New Deck</h2>
@@ -1163,9 +1099,22 @@ function openModal(type, deckId, cardId) {
                 <button class="btn btn-primary" onclick="confirmNewDeck()">Create</button>
             </div>
         `;
+        overlay.classList.add('active');
         setTimeout(() => document.getElementById('modalDeckName')?.focus(), 100);
-    } 
-    else if (type === 'addCard') {
+        return;
+    }
+    
+    // ADD CARD
+    if (type === 'addCard') {
+        if (!deckId || !data.decks[deckId]) {
+            const ids = Object.keys(data.decks);
+            if (ids.length === 0) {
+                showToast('Please create a deck first.');
+                return;
+            }
+            deckId = ids[0];
+            selectedDeckId = deckId;
+        }
         const deck = data.decks[deckId];
         content.innerHTML = `
             <h2>Add Card</h2>
@@ -1181,9 +1130,14 @@ function openModal(type, deckId, cardId) {
                 <button class="btn btn-primary" onclick="confirmAddCard('${deckId}')">Add Card</button>
             </div>
         `;
+        overlay.classList.add('active');
         setTimeout(() => document.getElementById('modalFront')?.focus(), 100);
+        return;
     }
-    else if (type === 'editCard') {
+    
+    // EDIT CARD
+    if (type === 'editCard') {
+        if (!deckId || !data.decks[deckId]) return;
         const deck = data.decks[deckId];
         const card = deck.cards.find(c => c.id === cardId);
         if (!card) return;
@@ -1201,9 +1155,17 @@ function openModal(type, deckId, cardId) {
                 <button class="btn btn-primary" onclick="confirmEditCard('${deckId}','${cardId}')">Save</button>
             </div>
         `;
+        overlay.classList.add('active');
         setTimeout(() => document.getElementById('modalFront')?.focus(), 100);
+        return;
     }
-    else if (type === 'manageDeck') {
+    
+    // MANAGE DECK
+    if (type === 'manageDeck') {
+        if (!deckId || !data.decks[deckId]) {
+            showToast('Deck not found.');
+            return;
+        }
         const deck = data.decks[deckId];
         let cardHtml = '';
         if (deck.cards.length === 0) {
@@ -1233,8 +1195,12 @@ function openModal(type, deckId, cardId) {
                 <button class="btn btn-neutral" style="flex:1;" onclick="closeModal()">Done</button>
             </div>
         `;
+        overlay.classList.add('active');
+        return;
     }
-    else if (type === 'search') {
+    
+    // SEARCH
+    if (type === 'search') {
         content.innerHTML = `
             <h2>Search Cards</h2>
             <p class="sub">Search by front, back, or tags (use #tagname)</p>
@@ -1244,9 +1210,13 @@ function openModal(type, deckId, cardId) {
                 <button class="btn btn-neutral" onclick="closeModal()">Close</button>
             </div>
         `;
+        overlay.classList.add('active');
         setTimeout(() => document.getElementById('searchInput')?.focus(), 100);
+        return;
     }
-    else if (type === 'tagsOverview') {
+    
+    // TAGS OVERVIEW
+    if (type === 'tagsOverview') {
         const tagCounts = {};
         for (const [deckId, deck] of Object.entries(data.decks)) {
             deck.cards.forEach(c => {
@@ -1273,8 +1243,12 @@ function openModal(type, deckId, cardId) {
                 <button class="btn btn-neutral" onclick="closeModal()">Close</button>
             </div>
         `;
+        overlay.classList.add('active');
+        return;
     }
-    else if (type === 'resetProgress') {
+    
+    // RESET PROGRESS
+    if (type === 'resetProgress') {
         const deckOptions = Object.entries(data.decks).map(([id, d]) => 
             `<option value="${id}">${d.name}</option>`
         ).join('');
@@ -1290,8 +1264,9 @@ function openModal(type, deckId, cardId) {
                 <button class="btn btn-danger" onclick="confirmResetProgress()">Reset</button>
             </div>
         `;
+        overlay.classList.add('active');
+        return;
     }
-    overlay.classList.add('active');
 }
 
 function closeModal() {
@@ -1299,13 +1274,26 @@ function closeModal() {
 }
 
 function confirmNewDeck() {
-    const name = document.getElementById('modalDeckName').value.trim();
-    if (!name) return;
+    const nameInput = document.getElementById('modalDeckName');
+    if (!nameInput) {
+        showToast('Error: Could not find input field.');
+        return;
+    }
+    const deckName = nameInput.value.trim();
+    if (!deckName) {
+        showToast('Please enter a deck name.');
+        return;
+    }
     const id = generateId();
-    data.decks[id] = { name, intervals: [0.0417, 1, 3, 7], cards: [] };
+    data.decks[id] = { 
+        name: deckName, 
+        intervals: [0.0417, 1, 3, 7], 
+        cards: [] 
+    };
     saveData();
     closeModal();
     renderHome();
+    showToast('✅ Deck created: ' + deckName);
 }
 
 function confirmAddCard(deckId) {
@@ -1625,13 +1613,11 @@ function renderSettings() {
     document.getElementById('labelGood').value = saved.good || 'Good';
     document.getElementById('labelEasy').value = saved.easy || 'Easy';
     
-    // Load token
     const token = loadToken();
     if (token) {
         document.getElementById('githubToken').value = '••••••••••••••••';
     }
     
-    // Show sync status
     const gistId = loadGistId();
     if (gistId) {
         document.getElementById('syncStatus').textContent = '✅ Sync ready (gist: ' + gistId.slice(0,8) + '...)';
@@ -1822,132 +1808,6 @@ window.setupGist = setupGist;
 window.pushToGist = pushToGist;
 window.pullFromGist = pullFromGist;
 window.saveToken = saveToken;
-</script>
-    <script>
-// ============================================================
-// PATCH: Fix "undefined deck name" error
-// ============================================================
-
-// Override getSelectedDeckId with safe version
-window.getSelectedDeckId = function() {
-    if (selectedDeckId && data.decks[selectedDeckId]) {
-        return selectedDeckId;
-    }
-    const ids = Object.keys(data.decks);
-    if (ids.length > 0) {
-        selectedDeckId = ids[0];
-        return ids[0];
-    }
-    showToast('Please create a deck first.');
-    return null;
-};
-
-// Override openModal to handle missing deck
-const originalOpenModal = window.openModal;
-window.openModal = function(type, deckId, cardId) {
-    if (type === 'addCard' || type === 'manageDeck') {
-        if (!deckId || !data.decks[deckId]) {
-            const ids = Object.keys(data.decks);
-            if (ids.length === 0) {
-                showToast('Please create a deck first.');
-                return;
-            }
-            deckId = ids[0];
-            selectedDeckId = deckId;
-        }
-    }
-    originalOpenModal(type, deckId, cardId);
-};
-
-console.log('✅ Patches applied successfully!');
-</script>
-<script>
-// ============================================================
-// FINAL PATCH: Fix New Deck + Add Card
-// ============================================================
-
-// Fix confirmNewDeck
-window.confirmNewDeck = function() {
-    const nameInput = document.getElementById('modalDeckName');
-    if (!nameInput) {
-        showToast('Error: Could not find input field.');
-        return;
-    }
-    const deckName = nameInput.value.trim();
-    if (!deckName) {
-        showToast('Please enter a deck name.');
-        return;
-    }
-    const id = generateId();
-    data.decks[id] = { 
-        name: deckName, 
-        intervals: [0.0417, 1, 3, 7], 
-        cards: [] 
-    };
-    saveData();
-    closeModal();
-    renderHome();
-    showToast('✅ Deck created: ' + deckName);
-};
-
-// Fix openModal - New Deck
-const originalOpenModal = window.openModal;
-
-window.openModal = function(type, deckId, cardId) {
-    const overlay = document.getElementById('modalOverlay');
-    const content = document.getElementById('modalContent');
-    
-    // Handle New Deck
-    if (type === 'newDeck') {
-        content.innerHTML = `
-            <h2>New Deck</h2>
-            <p class="sub">Create a new deck for a subject or topic.</p>
-            <label>Deck Name</label>
-            <input id="modalDeckName" placeholder="e.g. Anatomy, History, French" autofocus>
-            <div class="btn-row">
-                <button class="btn btn-neutral" onclick="closeModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="confirmNewDeck()">Create</button>
-            </div>
-        `;
-        overlay.classList.add('active');
-        setTimeout(() => {
-            const input = document.getElementById('modalDeckName');
-            if (input) input.focus();
-        }, 100);
-        return;
-    }
-    
-    // Handle Add Card - check if deck exists
-    if (type === 'addCard') {
-        if (!deckId || !data.decks[deckId]) {
-            const ids = Object.keys(data.decks);
-            if (ids.length === 0) {
-                showToast('Please create a deck first.');
-                return;
-            }
-            deckId = ids[0];
-            selectedDeckId = deckId;
-        }
-    }
-    
-    // For all other types, use the original function
-    originalOpenModal(type, deckId, cardId);
-};
-
-// Fix getSelectedDeckId
-window.getSelectedDeckId = function() {
-    if (selectedDeckId && data.decks[selectedDeckId]) {
-        return selectedDeckId;
-    }
-    const ids = Object.keys(data.decks);
-    if (ids.length > 0) {
-        selectedDeckId = ids[0];
-        return ids[0];
-    }
-    return null;
-};
-
-console.log('✅ All patches applied cleanly!');
 </script>
 </body>
 </html>
