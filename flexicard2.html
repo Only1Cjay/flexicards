@@ -1861,19 +1861,43 @@ window.openModal = function(type, deckId, cardId) {
 
 console.log('✅ Patches applied successfully!');
 </script>
-    <script>
+<script>
 // ============================================================
-// PATCH: Fix "+ New Deck" button
+// PATCH: Fix "+ New Deck" and confirmNewDeck
 // ============================================================
 
-// Override the newDeck section of openModal
+// Fix 1: Override confirmNewDeck
+window.confirmNewDeck = function() {
+    const nameInput = document.getElementById('modalDeckName');
+    if (!nameInput) {
+        showToast('Error: Could not find input field.');
+        return;
+    }
+    const deckName = nameInput.value.trim();
+    if (!deckName) {
+        showToast('Please enter a deck name.');
+        return;
+    }
+    const id = generateId();
+    data.decks[id] = { 
+        name: deckName, 
+        intervals: [0.0417, 1, 3, 7], 
+        cards: [] 
+    };
+    saveData();
+    closeModal();
+    renderHome();
+    showToast('✅ Deck created: ' + deckName);
+};
+
+// Fix 2: Override openModal for newDeck
 const originalOpenModal = window.openModal;
 
 window.openModal = function(type, deckId, cardId) {
     const overlay = document.getElementById('modalOverlay');
     const content = document.getElementById('modalContent');
     
-    // Handle New Deck separately — clean and simple
+    // Handle New Deck separately
     if (type === 'newDeck') {
         content.innerHTML = `
             <h2>New Deck</h2>
@@ -1886,7 +1910,10 @@ window.openModal = function(type, deckId, cardId) {
             </div>
         `;
         overlay.classList.add('active');
-        setTimeout(() => document.getElementById('modalDeckName')?.focus(), 100);
+        setTimeout(() => {
+            const input = document.getElementById('modalDeckName');
+            if (input) input.focus();
+        }, 100);
         return;
     }
     
@@ -1894,7 +1921,7 @@ window.openModal = function(type, deckId, cardId) {
     originalOpenModal(type, deckId, cardId);
 };
 
-console.log('✅ New Deck patch applied!');
+console.log('✅ All patches applied! New Deck should work now.');
 </script>
 </body>
 </html>
