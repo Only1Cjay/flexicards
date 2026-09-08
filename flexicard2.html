@@ -1573,20 +1573,19 @@ window.getSelectedDeckId = getSelectedDeckId;
 window.exportBackup = exportBackup;
 window.importBackup = importBackup;
 </script>
-    // ============================================================
-// SERVICE WORKER (Offline Support)
-// ============================================================
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/flexicards/sw.js')
-        .then(() => {
-            console.log('✅ Service Worker registered - app works offline!');
-            setTimeout(() => {
-                showToast('📱 Offline ready!');
-            }, 1000);
-        })
-        .catch((err) => {
-            console.log('❌ Service Worker registration failed:', err);
-        });
-}
+     <!-- Service Worker Registration -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/flexicards/sw.js')
+            .then(() => {
+                console.log('✅ Service Worker registered successfully!');
+            })
+            .catch((err) => {
+                console.log('❌ Service Worker registration failed:', err);
+            });
+    }
+    </script>
+</body>
+</html>
 </body>
 </html>
